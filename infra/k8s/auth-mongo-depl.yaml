@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: auth-pv
+  labels:
+    type: local
+spec:
+  storageClassName: 'manual'
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: '/d/work/2021/mastercard/test/mnt/mongo-data'
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auth-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-mongo
+  template:
+    metadata:
+      labels:
+        app: auth-mongo
+    spec:
+      containers:
+        - name: auth-mongo
+          image: mongo
+          volumeMounts:
+            - name: auth-storage
+              mountPath: /data/db
+      volumes:
+        - name: auth-storage
+          persistentVolumeClaim:
+            claimName: auth-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-mongo-srv
+spec:
+  selector:
+    app: auth-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
