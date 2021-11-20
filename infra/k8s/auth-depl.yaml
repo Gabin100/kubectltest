@@ -4,7 +4,7 @@ metadata:
   name: auth-depl
 spec:
   replicas: 1
-  selector: 
+  selector:
     matchLabels:
       app: auth
   template:
@@ -16,11 +16,11 @@ spec:
         - name: auth
           image: xcoders/auth
           env:
-            - name: JWT_KEY
+            - name: JWT_KET
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  key: JWT_KEY
+                  key: JWT_KET
 ---
 apiVersion: v1
 kind: Service
@@ -33,4 +33,4 @@ spec:
     - name: auth
       protocol: TCP
       port: 3000
-      targetPort: 3000 
+      targetPort: 3000
