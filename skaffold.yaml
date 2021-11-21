@@ -1,6 +1,6 @@
 apiVersion: skaffold/v2alpha3
 kind: Config
-deploy: 
+deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
@@ -8,7 +8,7 @@ build:
   local:
     push: false
   artifacts:
-    - image: xcoders/auth
+    - image: gabin100/auth
       context: auth
       docker:
         dockerfile: Dockerfile
