@@ -16,11 +16,11 @@ spec:
         - name: auth
           image: xcoders/auth
           env:
-            - name: JWT_KET
+            - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  key: JWT_KET
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service

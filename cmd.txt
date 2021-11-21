@@ -1,5 +1,5 @@
 Create secrete object in kubernetes pods
-$ kubectl create secret generic jwt-secret --from-literal=JWT_KET=asdf
+$ kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
 
 Get all secret 
 $ kubectl get secrets

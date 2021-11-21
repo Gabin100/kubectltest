@@ -32,8 +32,8 @@ app.all('*', async () => {
 app.use(errorHandler);
 
 const start = async () => {
-  if (!process.env.JWT_KET) {
-    throw new Error('JWT_KET must be defined');
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY must be defined');
   }
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
